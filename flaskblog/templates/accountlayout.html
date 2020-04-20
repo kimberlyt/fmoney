@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content=""> 
+
+  
+
+  <!-- Bootstrap core CSS -->
+  <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/simple-sidebar.css') }}" rel="stylesheet">
+
+
+  <!-- CSS here -->
+  <link rel="stylesheet" href="{{ url_for('static', filename= 'css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/themify-icons.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/flaticon.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/gijgo.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/slick.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  
+    {% if title %}
+        <title>MoneyReach  - {{ title }}</title>
+    {% else %}
+        <title>MoneyReach</title>
+    {% endif %}
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <a href="{{url_for('dash')}}" style="text-decoration:none"> <div class="sidebar-heading">Money Reach </div></a>
+      <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="{{url_for('transfer')}}" class="list-group-item list-group-item-action bg-light">Send Money</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Trabsaction History</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Earn Points</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Redeem Points</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{{url_for('account')}}">Account  <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('login')}}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('register')}}">Register</a>
+            </li>
+            {% endif %}
+            
+          </ul>
+        </div>
+      </nav>
+      <main role="main" class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %} 
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                  {{ message }}
+                   </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+
+      
+    <!-- /#page-content-wrapper -->
+    
+    
+    <!-- footer start -->
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 col-md-3">
+                        <div class="footer_logo wow fadeInRight" data-wow-duration="1s" data-wow-delay=".3s">
+                            <a href="index.html">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-7 col-md-9">
+                        <div class="menu_links">
+                            <ul>
+                                <li><a class="wow fadeInDown" data-wow-duration="1s" data-wow-delay=".2s" href="#">About</a class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s"></li>
+                                <li><a class="wow fadeInDown" data-wow-duration="1s" data-wow-delay=".4s" href="#">Services</a></li>
+                               
+                          
+                                <li><a class="wow fadeInDown" data-wow-duration="1s" data-wow-delay="1.1s" href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="socail_links">
+                            <ul>
+                                <li><a class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" href="#"> <i class="fa fa-facebook"></i> </a></li>
+                                <li><a class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s" href="#"> <i class="fa fa-twitter"></i> </a></li>
+                                <li><a class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s" href="#"> <i class="fa fa-instagram"></i> </a></li>
+                                <li><a class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s" href="#"> <i class="fa fa-google-plus"></i> </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text">
+            <div class="container">
+                <div class="footer_border"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.3s">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ footer end  -->
+
+  
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for ('static', filename ='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+
+  
+
+
+
+  <!-- JS here -->
+  <script src="{{ url_for('static', filename= 'js/vendor/modernizr-3.5.0.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/vendor/jquery-1.12.4.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/owl.carousel.min.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/isotope.pkgd.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/ajax-form.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/waypoints.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.counterup.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/imagesloaded.pkgd.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/scrollIt.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/jquery.scrollUp.min.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/wow.min.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/nice-select.min.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/jquery.slicknav.min.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/jquery.magnific-popup.min.js')}}"></script>
+  <script src="{{ url_for('static', filename= 'js/plugins.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/gijgo.min.js')}}"></script>
+
+  <!--contact js-->
+  <script src="{{ url_for('static', filename= 'js/contact.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.ajaxchimp.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.form.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.validate.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/mail-script.js')}}"></script>
+
+  <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>
