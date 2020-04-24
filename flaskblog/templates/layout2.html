@@ -56,10 +56,10 @@
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             {% if current_user.is_authenticated %}
             <li class="nav-item active">
-              <a class="nav-link" href="{{url_for('account')}}">Account  <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{url_for('users.account')}}">Account  <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login')}}">Logout</a>  <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{url_for('users.login')}}">Logout</a>  <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -74,10 +74,10 @@
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login')}}">Login</a>
+              <a class="nav-link" href="{{url_for('users.login')}}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('register')}}">Register</a>
+              <a class="nav-link" href="{{url_for('users.register')}}">Register</a>
             </li>
             {% endif %}
             
@@ -108,6 +108,7 @@
               <div class="row align-items-center justify-content-start">
                   <div class="col-lg-10 col-md-10">
                       <div class="slider_text">
+                          
                           <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".1s">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
                             ea commodo consequat.

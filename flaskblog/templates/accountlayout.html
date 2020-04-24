@@ -45,10 +45,10 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <a href="{{url_for('dash')}}" style="text-decoration:none"> <div class="sidebar-heading">Money Reach </div></a>
+      <a href="{{url_for('main.dash')}}" style="text-decoration:none"> <div class="sidebar-heading">Money Reach </div></a>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="{{url_for('transfer')}}" class="list-group-item list-group-item-action bg-light">Send Money</a>
+        <a href="{{url_for('main.transfer')}}" class="list-group-item list-group-item-action bg-light">Send Money</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Trabsaction History</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Earn Points</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Redeem Points</a>
@@ -59,6 +59,7 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
+      
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
@@ -71,10 +72,10 @@
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             {% if current_user.is_authenticated %}
             <li class="nav-item active">
-              <a class="nav-link" href="{{url_for('account')}}">Account  <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{url_for('users.account')}}">Account  <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="{{url_for('logout')}}">Logout<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{url_for('users.logout')}}">Logout<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,10 +90,10 @@
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login')}}">Login</a>
+              <a class="nav-link" href="{{url_for('users.login')}}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('register')}}">Register</a>
+              <a class="nav-link" href="{{url_for('users.register')}}">Register</a>
             </li>
             {% endif %}
             
@@ -117,7 +118,13 @@
 
       
     <!-- /#page-content-wrapper -->
-    
+    <!-- Currency Converter Script - FxExchangeRate.com  -->
+    <div style="font-size:16px;font-family:sans-serif,Arial,Helvetica;width:1078px; line-height:24px;border:1px solid #2D6AB4;background-color:#FFFFFF;">
+      <div style="background-color:#2D6AB4;height:24px; font-weight:bold;text-align:left;padding-top:3px; width:100%;">
+      <span style="background-image:url(https://www.fxexchangerate.com/static/flag.webp); background-position: 0 -2064px;float:left; margin:4px 0 0 20px; width:20px;height:15px; background-repeat:no-repeat;">
+      </span><a rel="nofollow" style="color:#FFFFFF;padding-left:5px;text-decoration:none;" href="https://usd.fxexchangerate.com">United States Dollar</a></div>
+      <script type="text/javascript" src="https://w.fxexchangerate.com/converter.php?fm=USD&ft=EUR,GBP,JPY,AUD,CAD,CNY,JMD,&lg=en&am=1&ty=2"></script>
+  </div><!--  End of Currency Converter Script -  FxExchangeRate.com -->
     
     <!-- footer start -->
     <footer class="footer">
