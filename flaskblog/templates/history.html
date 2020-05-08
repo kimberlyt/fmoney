@@ -1,0 +1,20 @@
+{% extends "accountlayout.html" %}
+{% block content %}
+    <h1>Transaction  History</h1>
+
+
+  {% for post in posts %}
+
+
+<div class="his">
+<table>
+  <thead ><tr><th>SENT TO</th><th style="padding:0 15px 0 30px">SENT ON</th><th style="padding:0 30px 0 15px">AMT</th><th>NOTE</th></tr></thead>
+  
+  <tbody>
+  <tr><td>{{post.username }}</td><td style="padding:0 15px 0 30px">{{post.date_posted.strftime('%Y-%m-%d %H:%M')}}</td><td style="padding:0 15px 0 15px">{{ post.amount }}</td><td>{{ post.note }}</td></tr>
+  
+  </tbody>
+  </table>
+</div>
+    {% endfor %}       
+{% endblock content %}    

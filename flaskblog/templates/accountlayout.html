@@ -31,6 +31,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/slick.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+
+  
+  
+  
   
     {% if title %}
         <title>MoneyReach  - {{ title }}</title>
@@ -48,11 +52,11 @@
       <a href="{{url_for('main.dash')}}" style="text-decoration:none"> <div class="sidebar-heading">Money Reach </div></a>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="{{url_for('main.transfer')}}" class="list-group-item list-group-item-action bg-light">Send Money</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Trabsaction History</a>
+        <a href="{{url_for('posts.transfer')}}" class="list-group-item list-group-item-action bg-light">Send Money</a>
+        <a href="{{url_for('main.history')}}" class="list-group-item list-group-item-action bg-light">Trabsaction History</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Earn Points</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Redeem Points</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        <a href="{{url_for('users.card')}}" class="list-group-item list-group-item-action bg-light">Card</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -169,7 +173,7 @@
                     <div class="col-xl-12">
                         <p class="copy_right text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.3s">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+Copyright Money Reach &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
@@ -210,6 +214,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="{{ url_for('static', filename= 'js/jquery.magnific-popup.min.js')}}"></script>
   <script src="{{ url_for('static', filename= 'js/plugins.js')}}"></script>
   <script src="{{ url_for('static', filename='js/gijgo.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/card.js')}}"></script>
+  
 
   <!--contact js-->
   <script src="{{ url_for('static', filename= 'js/contact.js')}}"></script>

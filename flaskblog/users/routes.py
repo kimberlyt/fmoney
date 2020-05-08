@@ -1,4 +1,3 @@
-
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
@@ -44,6 +43,11 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
+
+@users.route("/card")
+def card():
+
+    return render_template('card.html')
 
 
 @users.route("/account", methods=['GET', 'POST'])

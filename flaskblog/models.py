@@ -2,6 +2,7 @@ from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flaskblog import db, login_manager,app
 from flask_login import UserMixin
+#from flask_table import Table, Col
 
 
 
@@ -14,13 +15,17 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     username = db.Column(db.String(20),unique=True, nullable=False)
-    balance = db.Column(db.Integer,nullable=True)
+    balance = db.Column(db.Integer,nullable=True,default=0)
     email = db.Column(db.String(120),unique=True, nullable=False)
     image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
     password = db.Column(db.String(60),nullable=False)
     posts= db.relationship('Post', backref='author', lazy=True)
+
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', '{self.image_file}','{self.balance}')"
+
 
     def get_reset_token(self, expires_sec = 1800):
         s= Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -35,16 +40,19 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
 
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}','{self.balance}')"
-
+    
 
 class Post(db.Model):
     id = db.Column(db.Integer,primary_key= True)
-    title = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable = False,default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    username = db.Column(db.String(100), nullable=True)
+    #sento= db.Column(db.String(100),nullable=True)
+    amount = db.Column(db.Numeric(10,2),nullable=True)
+    note = db.Column(db.Text, nullable=True)
+    date_posted= db.Column(db.DateTime, nullable = False,default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+
+
+ 
 
 
 
@@ -58,4 +66,5 @@ class Post(db.Model):
     
 
     def __repr__(self):
-        return f"Post('{self.title}','{self.date_posted}')"
+        
+        return f"Post('{self.username}','{self.date_posted}',{self.amount}')"
