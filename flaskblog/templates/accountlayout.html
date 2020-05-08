@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 
-  
+  <link rel="shortcut icon" href="{{ url_for('static', filename='/img/logo3.ico') }}">
   
   
   
@@ -46,10 +46,14 @@
 <body>
 
   <div class="d-flex" id="wrapper">
-
+    <style>
+    .sidebar-heading {
+      text-align: center;
+    }
+  </style>
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <a href="{{url_for('main.dash')}}" style="text-decoration:none"> <div class="sidebar-heading">Money Reach </div></a>
+      <a href="{{url_for('main.dash')}}" style="text-decoration:none" > <div class="sidebar-heading"><img src="{{ url_for('static', filename='/img/logox.png') }}" width="170" height="80"></div></a>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
         <a href="{{url_for('posts.transfer')}}" class="list-group-item list-group-item-action bg-light">Send Money</a>
