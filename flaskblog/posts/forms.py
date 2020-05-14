@@ -5,7 +5,7 @@ from flask_login import current_user
 from flaskblog.models import User
 
 class TransferForm(FlaskForm):
-    username = StringField('Receipient', validators=[DataRequired(), Length(min=2,max=20)], render_kw={"placeholder": "Username"})
+    username = StringField('Recipient', validators=[DataRequired(), Length(min=2,max=20)], render_kw={"placeholder": "Username"})
     amount = DecimalField('Payment', validators=[DataRequired()], places=2, render_kw={"placeholder": "Amount of Money"})
     note = TextAreaField('Note',validators=[Optional()])
     
