@@ -45,6 +45,7 @@ def logout():
     return redirect(url_for('main.home'))
 
 @users.route("/card")
+@login_required
 def card():
 
     return render_template('card.html')
