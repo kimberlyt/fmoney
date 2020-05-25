@@ -1,9 +1,12 @@
+import os
 from flask import (render_template, url_for, flash,
-                   redirect, request, abort, Blueprint)
+                   redirect, request, abort, Blueprint,current_app)
 from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post,User
 from flaskblog.posts.forms import TransferForm
+from flask_mail import Message
+from flaskblog import mail
 
 
 posts = Blueprint('posts', __name__)
@@ -33,7 +36,10 @@ def transfer():
         
         db.session.add(post)
         db.session.commit()
-        
+        msg = Message('MoneyReach Transfer Notification ', sender='noreply@moneyreach.com', recipients =[current_user.email])
+        #msg.body = f'''Dear { current_user.username },Your Transfer of {form.amount.data} to {usr.username} was sucessful,Sincerely,The MoneyReach Team'''
+        msg.body = render_template("email.txt",usr=usr, form=form)
+        mail.send(msg)
         
 
         flash('SENT','success')
@@ -41,33 +47,6 @@ def transfer():
         bal1=0
    return render_template('transfer.html',title='Send Money',form=form)
 
-#posts = [
-   # {
-    #    'author': 'Corey Schafer',
-    #    'title': 'Blog Post 1',
-    #    'content': 'First post content',
-    #    'date_posted': 'April 20, 2018'
-    #},
-   # {
-   #     'author': 'Jane Doe',
-   #     'title': 'Blog Post 2',
-    #    'content': 'Second post content',
-   #     'date_posted': 'April 21, 2018'
-   # }
-#]
 
+    
 
-#posts = [
-   # {
-    #    'author': 'Corey Schafer',
-    #    'title': 'Blog Post 1',
-    #    'content': 'First post content',
-    #    'date_posted': 'April 20, 2018'
-    #},
-   # {
-   #     'author': 'Jane Doe',
-   #     'title': 'Blog Post 2',
-    #    'content': 'Second post content',
-   #     'date_posted': 'April 21, 2018'
-   # }
-#]

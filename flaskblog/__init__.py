@@ -12,6 +12,12 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
+#app.config['AUTHY_API_KEY']='ccdd23dd47639146a124ced0219b5134'
+app.config['TWILIO_ACCOUNT_SID'] = 'AC1d76c0fb6bebd3dbe8cafb0712816284'
+app.config['TWILIO_AUTH_TOKEN'] = 'ccdd23dd47639146a124ced0219b5134'
+app.config['TWILIO_VERIFY_SERVICE_ID'] = 'VAd3a63f3cc9ae1514e6120445afe6cf23'
+
+
 app.config['SECRET_KEY']= '859bd31bb2f0b6f02fca6ffbfaf8c8d3'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)

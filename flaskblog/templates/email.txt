@@ -1,0 +1,7 @@
+Dear {{ current_user.username }},
+
+Your transfer of ${{form.amount.data}} to {{usr.username}} was sucessful
+
+Sincerely,
+
+The MoneyReach Team

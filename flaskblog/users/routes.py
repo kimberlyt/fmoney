@@ -1,10 +1,13 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint,session
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
 from flaskblog.models import User, Post
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
-                                   RequestResetForm, ResetPasswordForm)
+                                   RequestResetForm, ResetPasswordForm,ConfirmForm)
 from flaskblog.users.utils import save_picture, send_reset_email
+import phonenumbers
+from flask import current_app
+from twilio.rest import Client, TwilioException
 
 users = Blueprint('users', __name__)
 
@@ -15,7 +18,8 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        phonenum= form.phone.data#
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password,phonenum=phonenum)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
@@ -31,8 +35,14 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
+            request_verification_token(user.phonenum)
+            session['username'] = user.username
+            session['phone'] = user.phonenum
             next_page = request.args.get('next')
+            return redirect(url_for('users.confirm', next=next_page,remember='1' if form.remember.data else '0'))
+
+            login_user(user, remember=form.remember.data)
+          
             return redirect(next_page) if next_page else redirect(url_for('main.dash'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
@@ -103,6 +113,52 @@ def reset_token(token):
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+def _get_twilio_verify_client():
+    return Client(
+        current_app.config['TWILIO_ACCOUNT_SID'],
+        current_app.config['TWILIO_AUTH_TOKEN']).verify.services(
+            current_app.config['TWILIO_VERIFY_SERVICE_ID'])
+
+
+def request_verification_token(phone):
+    verify = _get_twilio_verify_client()
+    try:
+        verify.verifications.create(to=phone, channel='sms')
+    except TwilioException:
+        verify.verifications.create(to=phone, channel='call')
+
+
+def check_verification_token(phone, token):
+    verify = _get_twilio_verify_client()
+    try:
+        result = verify.verification_checks.create(to=phone, code=token)
+    except TwilioException:
+        return False
+    return result.status == 'approved'
+
+
+
+@users.route('/confirm', methods=['GET', 'POST'])
+def confirm():
+    form = ConfirmForm()
+    if form.validate_on_submit():
+        phone = session['phone']
+        if check_verification_token(phone, form.token.data):
+            username = session['username']
+            del session['username']
+            user = User.query.filter_by(username=username).first()
+            next_page = request.args.get('next')
+            remember = request.args.get('remember', '0') == '1'
+            login_user(user, remember=remember)
+            return redirect(url_for('main.dash'))
+        form.token.errors.append('Invalid token')
+    return render_template('confirm.html', form=form)
+
+
+
+
 
 
 
